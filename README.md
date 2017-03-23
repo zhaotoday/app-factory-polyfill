@@ -41,7 +41,7 @@ request_uri: `/?gid=${store.url.groupId}`
 
 ## 代码示例
 
-可模拟的方法：
+可模拟的 API：
 ```js
 import axios from 'axios'
 import json from 'json-bigint'
@@ -90,7 +90,7 @@ class RESTDao {
 export default window.Bridge ? window.Bridge.require('sdp.restDao').promise() : new RESTDao()
 ```
 
-不可模拟的方法：
+不可模拟的 API：
 ```js
 import log from './utils/log'
 import promise from './utils/promise'
