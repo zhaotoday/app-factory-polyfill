@@ -1,31 +1,12 @@
 ## 项目背景
-近期，前端团队在开发网龙 99 游手机端上的一个混合应用，叫群等级，基于应用工厂 JS Bridge 提供的原生能力。项目开发完成后，PC 端提出需要复用我们的 H5 页面（提示：目前 99 游 PC 端默认用 webkit 内核浏览器来渲染 H5 页面）。
+近期，前端团队在开发网龙 99 游手机端上的一个混合应用，叫：群等级，基于应用工厂 JS Bridge 提供的原生能力。项目开发完成后，PC 端提出需要复用我们的 H5 页面（提示：目前 99 游 PC 端默认用 webkit 内核浏览器来渲染 H5 页面）。
 
 ## 解决方案
-添加 JS Bridge polyfill，模拟 JS Bridge 注入的原生能力，其中无法模拟的 API（设备相关接口，如：存储、下载、摄像头等）方法返回空。
+添加 JS Bridge polyfill，模拟 JS Bridge 注入的原生能力，其中无法模拟的 API（如设备相关接口等）方法返回空。
 
 ## 代码示例
-#### 不可模拟的方法
-```js
-import log from './utils/log'
-import promise from './utils/promise'
 
-export default window.Bridge ? window.Bridge.require('sdp.appfactory').promise() : {
-  registerWebviewMenu() {
-    log('sdp.appfactory', 'registerWebviewMenu', arguments)
-    return promise
-  },
-  unRegisterWebviewMenu() {
-    log('sdp.appfactory', 'unRegisterWebviewMenu', arguments)
-    return promise
-  },
-  setMenuVisible() {
-    log('sdp.appfactory', 'setMenuVisible', arguments)
-    return promise
-  }
-}
-```
-#### 可模拟的方法
+可模拟的方法：
 ```js
 import axios from 'axios'
 import json from 'json-bigint'
@@ -72,5 +53,24 @@ class RESTDao {
 }
 
 export default window.Bridge ? window.Bridge.require('sdp.restDao').promise() : new RESTDao()
-
 ```
+
+不可模拟的方法
+```js
+import log from './utils/log'
+import promise from './utils/promise'
+
+export default window.Bridge ? window.Bridge.require('sdp.appfactory').promise() : {
+  registerWebviewMenu() {
+    log('sdp.appfactory', 'registerWebviewMenu', arguments)
+    return promise
+  },
+  unRegisterWebviewMenu() {
+    log('sdp.appfactory', 'unRegisterWebviewMenu', arguments)
+    return promise
+  },
+  setMenuVisible() {
+    log('sdp.appfactory', 'setMenuVisible', arguments)
+    return promise
+  }
+}
