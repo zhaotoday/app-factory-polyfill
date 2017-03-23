@@ -37,7 +37,7 @@ new UCModel()
 ```
 request_uri: `/?gid=${store.url.groupId}`
 ```
-需要和 PC 协商，两端算法保持一致。鉴权成功后，将返回的 token 等保存在本地，用于计算接口请求所需的 Authorization 头信息。
+需要和 PC 端协商，两端算法保持一致。鉴权成功后，将返回的 token 等保存在本地，用于计算接口请求所需的 Authorization 头信息。
 
 ## 代码示例
 
