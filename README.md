@@ -1,2 +1,2 @@
-# app-factory-polyfill
-ND app factory JS Bridge polyfill. 网龙应用工厂 JS Bridge 的 polyfill。
+## 项目背景
+前端团队近期基于应用工厂的 JS Bridge 提供的原生能力开发网龙 99 游上的一个混合应用，叫群等级。
