@@ -2,7 +2,7 @@
 近期，前端团队在开发网龙 99 游手机端上的一个混合应用，叫：群等级，基于应用工厂 JS Bridge 提供的原生能力。项目开发完成后，PC 端提出需要复用我们的 H5 页面。
 
 ## 解决方案
-添加 JS Bridge polyfill，模拟 JS Bridge 注入的原生能力，其中无法模拟的 API（如设备相关接口等）方法返回空。
+添加 JS Bridge polyfill，模拟 JS Bridge 注入的原生能力，其中无法模拟的 API（如设备相关接口等）返回空 Promise 对象。
 
 ## UC 鉴权
 浏览器访问 H5 页面时，无法通过 JS Bridge 的 sdp.restDao 下的 restDao API 进行接口请求授权。这时，PC 端需在 H5 访问地址上带上票据，即：
