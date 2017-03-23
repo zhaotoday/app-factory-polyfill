@@ -4,6 +4,41 @@
 ## 解决方案
 添加 JS Bridge polyfill，模拟 JS Bridge 注入的原生能力，其中无法模拟的 API（如设备相关接口等）方法返回空。
 
+## UC 鉴权
+浏览器访问 H5 页面时，无法通过 JS Bridge 的 sdp.restDao 下的 restDao API 进行接口请求授权。这时，PC 端需在 H5 访问地址上带上票据，即：
+```js
+token=Base64.encode(`${mac}\r\n${access_token}\r\n${nonce}`)
+```
+UC 鉴权：
+```js
+new UCModel()
+  .addPath(`${access_token}/actions/valid`)
+  .POST({
+    data: {
+      mac: mac,
+      nonce: nonce,
+      http_method: 'GET',
+      request_uri: `/?gid=${store.url.groupId}`,
+      host: ENV.host
+    }
+  })
+  .then((res) => {
+    store.userId.set(res['user_id'])
+    store.token.set(res)
+    this.context.router.push('grade')
+  })
+  .catch(() => {
+    this.setState({
+      message: '鉴权失败。'
+    })
+  })
+```
+其中
+```
+request_uri: `/?gid=${store.url.groupId}`
+```
+需要和 PC 协商，两端算法保持一致。
+
 ## 代码示例
 
 可模拟的方法：
@@ -55,7 +90,7 @@ class RESTDao {
 export default window.Bridge ? window.Bridge.require('sdp.restDao').promise() : new RESTDao()
 ```
 
-不可模拟的方法
+不可模拟的方法：
 ```js
 import log from './utils/log'
 import promise from './utils/promise'
